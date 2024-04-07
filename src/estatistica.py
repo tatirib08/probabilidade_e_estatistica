@@ -27,8 +27,6 @@ curtose_casos_por_ano = casos_por_ano.count().kurtosis()
 variancia_casos_por_ano = casos_por_ano.count().var()
 desvio_padrao_casos_por_ano = casos_por_ano.count().std()
 
-resumo = casos_por_ano.count().describe()
-
 print(f'Média -> {media_casos_por_ano}')
 print(f'Moda -> {moda_casos_por_ano.to_list()}')
 print(f'Mediana -> {mediana_casos_por_ano}')
