@@ -18,7 +18,7 @@ casos_por_ano.hist(bins=2)
 #poligono de frequencia casos por ano
 casos_por_ano.value_counts().plot()
 
-plt.show()
+plt.figure("quartis").show()
 
 media_casos_por_ano = casos_por_ano.count().mean()
 moda_casos_por_ano = casos_por_ano.count().mode()
@@ -33,6 +33,12 @@ print(f'Mediana -> {mediana_casos_por_ano}')
 print(f'Curtose -> {curtose_casos_por_ano}')
 print(f'Variância -> {variancia_casos_por_ano}')
 print(f'Desvio Padrão -> {desvio_padrao_casos_por_ano}')
+
+quartis_casos_por_ano = casos_por_ano.count().quantile([.25, .5, .75]) 
+
+quartis_casos_por_ano.plot.bar(color=['#2876EB', '#5728EB', '#2838EB'])
+
+plt.show()
 
 '''
 Histograma; poligono de frequencia; poligono de frequencia acumulada; 
