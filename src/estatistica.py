@@ -1,15 +1,24 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import pearsonr, spearmanr
 
 dados = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_editado.csv")
-
+dados_correlacao = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_correlacao.csv")
 #histograma casos por região
 histograma_casos_por_regiao = plt.figure("histograma_casos_por_regiao")
 casos_por_regiao = dados.groupby(by="MACRORREG_LPI")["MACRORREG_LPI"]
 casos_por_regiao.hist(bins=2)
 #poligono de frequencia casos por região
 casos_por_regiao.value_counts().plot()
+
+# IDADE
+histograma_casos_por_idade = plt.figure("histograma_casos_por_idade")
+casos_por_idade = dados_correlacao.groupby(by="IDADE")["IDADE"]
+casos_por_idade.hist(bins=2)
+#obitos é outro dataframe 
+obitos = dados_correlacao.loc[dados_correlacao['OBITO'] == "SIM"]
+# print(obitos.to_string())
 
 #histograma casos por ano
 histograma_casos_por_ano = plt.figure("histograma_casos_por_ano")
@@ -19,7 +28,6 @@ casos_por_ano.hist(bins=2)
 casos_por_ano.value_counts().plot()
 
 plt.figure("quartis").show()
-
 
 # plt.show()
 
@@ -43,19 +51,30 @@ quartis_casos_por_ano.plot.bar(color=['#2876EB', '#5728EB', '#2838EB'])
 
 # ######## correlação:
 # diagrama de dispersão (scatter plot):
-dispersaoIdadeEstado = plt.figure("diagrama_dispersão_idade_estado")
-# plt.plot(dados['UF_LPI'], dados['IDADE'], color='k') ta dando erro
-plt.scatter(dados['UF_LPI'], dados['IDADE'], color='r')
-plt.xlabel("Unidade Federativa")
-plt.ylabel("Idade do infectado")
-# plt.xticks([a-b]) -> definir intervalo
+# dispersaoIdadeEstado = plt.figure("diagrama_dispersão_idade_estado")
+# # plt.plot(dados['UF_LPI'], dados['IDADE'], color='k') ta dando erro
+# plt.scatter(dados['UF_LPI'], dados['IDADE'], color='r')
+# plt.xlabel("Unidade Federativa")
+# plt.ylabel("Idade do infectado")
+# # plt.xticks([a-b]) -> definir intervalo
 
-# diagrama de dispersão ano-estado
-dispersaoAnoEstado = plt.figure("diagrama_dispersão_ano_estado")
-# plt.plot(dados['UF_LPI'],dados['ANO_IS'], color='k')ta dando erro
-plt.scatter(dados['UF_LPI'],dados['ANO_IS'], color='g')
-plt.xlabel("Unidade Federativa")
-plt.ylabel("Ano da incidência")
+
+# # diagrama de dispersão ano-estado
+# dispersaoAnoIdade = plt.figure("diagrama_dispersão_ano_idade")
+# # plt.plot(dados['UF_LPI'],dados['ANO_IS'], color='k')ta dando erro
+# plt.scatter(dados['ANO_IS'],dados['IDADE'], color='g')
+# plt.xlabel("Ano da incidência")
+# plt.ylabel("Idade")
+# # coef_pearson1, valor1 = pearsonr(dados['IDADE'],dados['IDADE'])
+# # print(coef_pearson1)
+
+# dispersão idade-óbito
+dispersaoIdadeObito = plt.figure("diagrama_dispersão_idade_óbito")
+plt.scatter(obitos["IDADE"], obitos["OBITO"], color='b')
+plt.xlabel("Idade")
+plt.ylabel("Óbito")
+
+
 
 plt.show()
 
