@@ -20,6 +20,9 @@ casos_por_ano.value_counts().plot()
 
 plt.figure("quartis").show()
 
+
+# plt.show()
+
 media_casos_por_ano = casos_por_ano.count().mean()
 moda_casos_por_ano = casos_por_ano.count().mode()
 mediana_casos_por_ano = casos_por_ano.count().median()
@@ -37,6 +40,22 @@ print(f'Desvio Padrão -> {desvio_padrao_casos_por_ano}')
 quartis_casos_por_ano = casos_por_ano.count().quantile([.25, .5, .75]) 
 
 quartis_casos_por_ano.plot.bar(color=['#2876EB', '#5728EB', '#2838EB'])
+
+# ######## correlação:
+# diagrama de dispersão (scatter plot):
+dispersaoIdadeEstado = plt.figure("diagrama_dispersão_idade_estado")
+# plt.plot(dados['UF_LPI'], dados['IDADE'], color='k') ta dando erro
+plt.scatter(dados['UF_LPI'], dados['IDADE'], color='r')
+plt.xlabel("Unidade Federativa")
+plt.ylabel("Idade do infectado")
+# plt.xticks([a-b]) -> definir intervalo
+
+# diagrama de dispersão ano-estado
+dispersaoAnoEstado = plt.figure("diagrama_dispersão_ano_estado")
+# plt.plot(dados['UF_LPI'],dados['ANO_IS'], color='k')ta dando erro
+plt.scatter(dados['UF_LPI'],dados['ANO_IS'], color='g')
+plt.xlabel("Unidade Federativa")
+plt.ylabel("Ano da incidência")
 
 plt.show()
 
