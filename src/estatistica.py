@@ -15,7 +15,7 @@ casos_por_regiao.value_counts().plot()
 # IDADE
 histograma_casos_por_idade = plt.figure("histograma_casos_por_idade")
 casos_por_idade = dados_correlacao.groupby(by="IDADE")["IDADE"]
-casos_por_idade.hist(bins=2)
+casos_por_idade.hist(bins=1)
 #obitos é outro dataframe 
 obitos = dados_correlacao.loc[dados_correlacao['OBITO'] == "SIM"]
 # print(obitos.to_string())
