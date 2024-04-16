@@ -2,9 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
+import csv 
 
 dados = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_editado.csv")
 dados_correlacao = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_correlacao.csv")
+dados_obitos_por_idade = pd.read_excel("src/dados/FrequenciaIdade.xlsx")
 #histograma casos por região
 histograma_casos_por_regiao = plt.figure("histograma_casos_por_regiao")
 casos_por_regiao = dados.groupby(by="MACRORREG_LPI")["MACRORREG_LPI"]
@@ -16,11 +18,11 @@ casos_por_regiao.value_counts().plot()
 histograma_casos_por_idade = plt.figure("histograma_casos_por_idade")
 casos_por_idade = dados_correlacao.groupby(by="IDADE")["IDADE"]
 casos_por_idade.hist(bins=2)
-#obitos é outro dataframe 
-obitos = dados_correlacao.loc[dados_correlacao['OBITO'] == "SIM"]
-# print(obitos.to_string())
+# print(casos_por_idade)
 
-#histograma casos por ano
+obitos = dados_correlacao.loc[dados_correlacao['OBITO'] == "SIM"].groupby(by="IDADE")["IDADE"]
+# print(obitos.value_counts().to_string())
+
 histograma_casos_por_ano = plt.figure("histograma_casos_por_ano")
 casos_por_ano = dados.groupby(by="ANO_IS")["ANO_IS"]
 casos_por_ano.hist(bins=2)
@@ -49,32 +51,13 @@ quartis_casos_por_ano = casos_por_ano.count().quantile([.25, .5, .75])
 
 quartis_casos_por_ano.plot.bar(color=['#2876EB', '#5728EB', '#2838EB'])
 
-# ######## correlação:
+# ######## correlação ########:
 # diagrama de dispersão (scatter plot):
-# dispersaoIdadeEstado = plt.figure("diagrama_dispersão_idade_estado")
-# # plt.plot(dados['UF_LPI'], dados['IDADE'], color='k') ta dando erro
-# plt.scatter(dados['UF_LPI'], dados['IDADE'], color='r')
-# plt.xlabel("Unidade Federativa")
-# plt.ylabel("Idade do infectado")
-# # plt.xticks([a-b]) -> definir intervalo
-
-
-# # diagrama de dispersão ano-estado
-# dispersaoAnoIdade = plt.figure("diagrama_dispersão_ano_idade")
-# # plt.plot(dados['UF_LPI'],dados['ANO_IS'], color='k')ta dando erro
-# plt.scatter(dados['ANO_IS'],dados['IDADE'], color='g')
-# plt.xlabel("Ano da incidência")
-# plt.ylabel("Idade")
-# # coef_pearson1, valor1 = pearsonr(dados['IDADE'],dados['IDADE'])
-# # print(coef_pearson1)
-
-# dispersão idade-óbito
-dispersaoIdadeObito = plt.figure("diagrama_dispersão_idade_óbito")
-plt.scatter(obitos["IDADE"], obitos["OBITO"], color='b')
+dispersaoObitosIdade = plt.figure("diagrama_dispersão_idade_óbitos")
+plt.scatter(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'], color='r')
 plt.xlabel("Idade")
-plt.ylabel("Óbito")
-
-
+plt.ylabel("Óbitos")
+# #####################################3
 
 plt.show()
 
