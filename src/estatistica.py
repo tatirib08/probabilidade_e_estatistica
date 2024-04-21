@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import pearsonr, spearmanr, kendalltau
 import csv 
+import statsmodels.formula.api as smf 
+import seaborn as sns
 
 dados = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_editado.csv")
 dados_correlacao = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_correlacao.csv")
@@ -30,8 +32,6 @@ casos_por_ano.value_counts().plot()
 
 plt.figure("quartis").show()
 
-# plt.show()
-
 media_casos_por_ano = casos_por_ano.count().mean()
 moda_casos_por_ano = casos_por_ano.count().mode()
 mediana_casos_por_ano = casos_por_ano.count().median()
@@ -50,13 +50,22 @@ quartis_casos_por_ano = casos_por_ano.count().quantile([.25, .5, .75])
 
 quartis_casos_por_ano.plot.bar(color=['#2876EB', '#5728EB', '#2838EB'])
 
+'''
+    CORRELAÇÃO LINEAR
+'''
 # ######## correlação ########:
 # diagrama de dispersão (scatter plot):
 dispersaoObitosIdade = plt.figure("diagrama_dispersão_idade_óbitos")
 plt.scatter(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'], color='r')
 plt.xlabel("Idade")
 plt.ylabel("Óbitos")
-# ######### coeficiente de correlação linear :
+
+dispersaoCasosPorAno = plt.figure("dispersão_casos_por_ano")
+dfCasosPorAno = dados.groupby(["ANO_IS"]).size().reset_index(name="COUNT")
+plt.scatter(dfCasosPorAno['ANO_IS'], dfCasosPorAno['COUNT'], color='r')
+plt.xlabel("Ano")
+plt.ylabel("Casos")
+
 # coeficiente de pearson 
 ''' 
     Coeficiente de Pearson(r): mede o grau da correlação linear entre duas variáveis quantitativas
@@ -84,6 +93,21 @@ print(f"COEFICIENTE DE SPEARMAN:  {coef_spearman}")
 # coef de spearman output = 0.015121537240898921
 
 # ######## Análise de Regressão 
+'''
+    Descrever por meio de um modelo matemático a relação entre duas variáveis, a partir de
+    n observações das mesmas.
+    Regressão linear simples: um pra um. -> função do primeiro grau: ML
+    Regressão linear múltipla: um pra muitos
+'''
+regression = smf.ols('OBITOS ~ IDADE', data=dados_obitos_por_idade)
+regression.fit().summary()
+plt.figure("regressão_óbitos_por_idade")
+sns.regplot(x='IDADE', y='OBITOS', data=dados_obitos_por_idade)
+
+regression2 = smf.ols('COUNT ~ ANO_IS', data=dfCasosPorAno)
+regression2.fit().summary()
+plt.figure("regressão_casos_por_ano")
+sns.regplot(x='ANO_IS', y='COUNT', data=dfCasosPorAno)
 
 plt.show()
 
