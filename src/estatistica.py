@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import pearsonr, spearmanr
+from scipy.stats import pearsonr, spearmanr, kendalltau
 import csv 
 
 dados = pd.read_csv("src/dados/fa_casoshumanos_1994-2023_editado.csv")
@@ -56,7 +56,34 @@ dispersaoObitosIdade = plt.figure("diagrama_dispersão_idade_óbitos")
 plt.scatter(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'], color='r')
 plt.xlabel("Idade")
 plt.ylabel("Óbitos")
-# #####################################3
+# ######### coeficiente de correlação linear :
+# coeficiente de pearson 
+''' 
+    Coeficiente de Pearson(r): mede o grau da correlação linear entre duas variáveis quantitativas
+    r = +1 -> correlação positiva perfeita
+    r = 0 -> não há correlação ou a correlação não é linear
+    r =-1 -> correlação negativa perfeita 
+'''
+coef_pearson, p_valor = pearsonr(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'])
+# coeficiente de correlação de spearman
+''' 
+    Coeficiente de Spearman(rho): medida não paramétrica da dependência dos postos das variáveis. 
+    O valor varia de -1 a +1, sendo que quanto mais próximo dos extremos, maior é a correlação. 
+'''
+coef_spearman, p_valor = spearmanr(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'])
+
+''' 
+    Coeficiente de correlação de Kendall
+'''
+
+print(dados_obitos_por_idade["IDADE"].corr(dados_obitos_por_idade["OBITOS"]))
+
+print(f"COEFICIENTE DE PEARSON:  {coef_pearson}")
+# coef de pearson output = -0.00675470470148104
+print(f"COEFICIENTE DE SPEARMAN:  {coef_spearman}")
+# coef de spearman output = 0.015121537240898921
+
+# ######## Análise de Regressão 
 
 plt.show()
 
