@@ -21,10 +21,11 @@ casos_por_regiao.hist(bins=2)
 ''' poligono de frequencia ''' 
 casos_por_regiao.value_counts().plot()
 
+plt.show()
+
 ''' print '''
 print(f'\n\nCASOS POR REGIÃO: \n{casos_por_regiao.value_counts()}\n\n')
 ''''''
-
 
 '''
     HISTOGRAMA CASOS POR IDADE
@@ -38,11 +39,12 @@ casos_por_idade = dados.groupby(by="IDADE")["IDADE"]
 casos_por_idade.hist(bins=1)
 ''''''
 
+plt.show()
+
 '''
     ANÁLISE CASOS POR ANO
 '''
 agrupado_por_ano = dados.groupby(by="ANO_IS")
-histograma_casos_por_ano = plt.figure("histograma_casos_por_ano_completo")
 
 df_casos_por_ano = agrupado_por_ano.size().reset_index(name="CASOS")
 coluna_casos = df_casos_por_ano['CASOS']
@@ -99,6 +101,8 @@ plt.xlabel("Ano")
 plt.ylabel("Casos")
 agrupado_por_ano["ANO_IS"].hist(bins=1)
 
+plt.show()
+
 histograma_casos_por_ano = plt.figure("histograma_casos_por_ano_y_limitado")
 histograma_casos_por_ano.gca().set_ylim([0, quartis_casos_por_ano[0.75] + 1.5 * amplitude_interquartil_casos_por_ano])
 plt.title("Casos agrupados por ano com eixo Y limitado")
@@ -106,6 +110,8 @@ plt.xlabel("Ano")
 plt.ylabel("Casos")
 agrupado_por_ano["ANO_IS"].hist(bins=1)
 ''''''
+
+plt.show()
 
 '''
     BOX PLOT CASOS POR ANO 
@@ -131,7 +137,7 @@ print(f'- Limite superior -> {limite_superior}')
 
 print("\n")
 ''''''
-
+plt.show()
 
 '''
     CORRELAÇÃO LINEAR
@@ -150,6 +156,8 @@ plt.scatter(dfCasosPorAno['ANO_IS'], dfCasosPorAno['COUNT'], color='r')
 plt.title("Casos agrupados por ano")
 plt.xlabel("Ano")
 plt.ylabel("Casos")
+
+plt.show()
 
 # coeficiente de pearson 
 ''' 
