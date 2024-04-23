@@ -174,9 +174,7 @@ coef_pearson, p_valor = pearsonr(dados_obitos_por_idade['IDADE'], dados_obitos_p
 '''
 coef_spearman, p_valor = spearmanr(dados_obitos_por_idade['IDADE'], dados_obitos_por_idade['OBITOS'])
 
-''' 
-    Coeficiente de correlação de Kendall
-'''
+
 print(f"COEFICIENTE DE PEARSON:  {coef_pearson}")
 # coef de pearson output = -0.00675470470148104
 print(f"COEFICIENTE DE SPEARMAN:  {coef_spearman}")
