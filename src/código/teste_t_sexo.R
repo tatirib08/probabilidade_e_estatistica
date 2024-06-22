@@ -5,7 +5,7 @@ Dados <-read.csv('dados/original.csv', sep=';', encoding = 'UTF-8')
 View(Dados) 
 
 municipios <- Dados %>%
-  group_by(MUN_LPI, UF_LPI, SEXO) %>%
+  group_by(MUN_LPI, SEXO) %>%
   summarise(frequencia = n()) %>%
   ungroup()
 
