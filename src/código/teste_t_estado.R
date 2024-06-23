@@ -13,4 +13,6 @@ municipios <- Dados %>%
 View(municipios)
 
 #variância desigual
+#Hipótese nula -> A diferença da média de casos das cidades do estado de São Paulo comparado às cidades fora do estado de São Paulo são = 0
+#Hipótese alternativa -> A diferença da média de casos das cidades do estado de São Paulo comparado às cidades fora do estado de São Paulo são > 0
 t.test(municipios$frequencia~municipios$pertence_sp, alternative = "greater")    

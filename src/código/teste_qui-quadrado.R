@@ -1,13 +1,7 @@
 # teste qui-quadrado com sexo e ocorrência de óbito ou não 
-
-install.packages("haven")
-install.packages("psych")
-install.packages("janitor")
-install.packages("effectsize")
-install.packages("ggplot2")
 library(ggplot2)
 library(haven)
-library(psych)
+#library(psych)
 library(janitor)
 library(effectsize) 
 library(dplyr)
@@ -41,3 +35,4 @@ qui.q$stdres
 # stdres ->  Os resíduos padronizados são os resíduos divididos pelo desvio
 #padrão. Eles ajudam a identificar células com contribuições desproporcionais 
 #para o qui-quadrado.
+
