@@ -1,2 +1,2 @@
 # probabilidade_e_estatistica
-trabaho de probabilidade e estatística sobre análise de dados do ibge. 
+Trabaho de probabilidade e estatística sobre análise de dados do ibge, usando python, pandas, numpy, matplotlib. 
